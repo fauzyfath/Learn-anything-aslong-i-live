@@ -364,3 +364,61 @@ ex. function createIncrement(){
 
 each time we call increment its working with the same count variable, not a copu of its initial value. closures are a powerful tool in javascript. as you continue to work with javascript you'll find that understanding and using closures effectively can greatly enchance you ability to write clean, efficient and powerful code.
 
+# what is the var keyword, and why is it no longer suggested to use it?
+the var keyword in javascript is one of the original ways to declare variables. it has been part of the language since its inception and for many years it remained the primary method for creating variables. however as javasript evolved and developers gained more experience with the language, certain drawbacks of using var became apparent leading to the introduction of let and const in 2015.
+
+when you declare a variable with var, it becomes function-scoped or globally-scoped. this means that if you declare a variabale isnide a function using var it's only accesible within that function. however if you declare it outside any function, it becomes global variable accessible throughout your entire script. this behaviour can sometimes lead to unexpected results and make your code harder to understand.
+
+a problem with var is that it allows you to redeclare the same variable multiple times without throwing an error. this can lead to accidental overwrites and make debugging more difficult.
+
+ex. var num = 45;
+    console.log(num);   //45
+
+    //this allowed and don't throw any error
+    var num = 12;
+    console.log(num);   //12
+
+the most significant issue with var is its lack of blocking scooping. variables declared with var inside a block like an if statement or for loop are still accessible outside that block.
+
+ex. if(true){
+        var num = 2;
+    }
+    console.log(num);   //2
+
+this behaviour can lead to unintended variable leaks and make your code more prone to bugs. 
+
+due to these issue, modern javascript development has largely moved away from var in favor of let and const. these keywords provide block scoping which alings more closely with how scoping works in many other programming languages.
+
+they also don't allow redeclaration within the same scope helping to prevent accidental overrides.
+
+while var is still part of javascript and works in all browsers, it's generally recommended to use let and const in modern javascript development. they provide clear scoping rules, help prevent common pitfalls, and make your code behaviour more predictable.
+
+# what is hoisting?
+hoisting is a behaviour in javascript that often confuses beginners, but understanding it can help you avoid subtle bugs in your code. in simple terms hoisting is javascript default behaviour of moving declarations to the top of their respective scope during the compilation phase before the code is executed.
+
+to understanding hoisting, it's important to know that javascript runs in two phases: the compilatin phase and the execution phase. during the compilation phase, javascript engine goes through your code and sets up memory space for variables and function. this is where hoisting comes into play.
+
+let's start with variables hoisting, when you declare a variable using the var keyword, javascript hoists the declaration to the top of its scope. however it's crucial to note that only the declaration is hoisted, not the inilialization. this means you can use a variable in your code before you have declared it, but its value will be undefined until you actually assign a value to it.
+
+ex. console.log(x);     //undefined
+    var x = 2;
+    console.log(x);     //2
+
+function hoisting works a bit differently. when you declare a function using the function declaration syntax both the function name and the function body are hoisted. this means you can call a function before you've declared it in your code. here's an example of function hoisting.
+
+ex. sayhello();     //"hello,world"
+    function sayHello(){
+        console.log("hello,world");
+    }
+
+in this case, we can call sayHello() before its declaration because the entire functions is hoisted to the top of its scope.
+
+it's important to note that hoisting works differently with let and const declaration introduced in ES6.
+
+ex. console.log(y);     //throws a refereceError
+    let y = 10;
+
+these declarations are hoisted but they are not initialied and you can't access them before the actual declaration in your code. this is often referred to as the temporal dead zone.
+
+understanding hoisting can helo you write cleaner, more predictable code. however, relying on hoisting can make your code harder to read and maintain. as a best practice, it's recommend to declare your variables at the top of theier scope and your functions before you use them regardless of hoisting. this make your codes behaviour more explicit and easier for others including your future self to understand.
+
