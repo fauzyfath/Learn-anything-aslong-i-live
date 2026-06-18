@@ -1,0 +1,54 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --light-grey: #efefef;
+  --white: #ffffff;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+main {
+  align-items: center;
+}
+
+h1, 
+.title {
+    padding-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+li {
+    width: 200px;
+    justify-content: space-between;
+    display: flex;
+    
+    border-bottom: 1px solid gray;
+    padding-bottom: 20px;
+    margin-top: 20px;  
+}
+
+.favorite-icon,
+button{
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 20px;
+}
+
+.filled{
+    color: red;
+}
