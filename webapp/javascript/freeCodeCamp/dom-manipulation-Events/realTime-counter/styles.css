@@ -1,0 +1,50 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    --light-grey: #efefef;
+    --white: #ffffff;
+}
+
+html,body{
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    background-color: rgb(131, 163, 174);
+}
+
+main{
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+h1,#title{
+    background-color: lightyellow;
+    text-align: center;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+textarea{
+    display: block;
+    margin: 0 auto;
+}
+p,#char-count{
+    text-align: center;
+    color: rgb(93, 89, 89);
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.colorBgText{
+    background-color: red;
+}
