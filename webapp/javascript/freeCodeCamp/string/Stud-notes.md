@@ -192,3 +192,318 @@ ex. let greeting = "hello";
 
 bracket notation is useful when yu need to access a specific characters in string, such as extracting initials from a name or checking a specific letter for validation
 
+
+# templates literals and string interpolation 
+templates literals and flexible way to work with strings, unlike regural strings, which use (') or double (") quotes, template literals are defined with backtick(`).
+
+they allow for esier string manipulation, including embedding variable directly inside string, a feature string called interpolation
+
+template literals make it esier to create strings that span multiple lines or include expressions (like variable or even codes logic) directly within the string
+
+ex. const name = "james";
+    const greeting = `hello, i am ${name}!`;
+    console.log(greeting);      //hello, i am james
+
+string interpolation allows you to embed variables and expressions inside a string. this is a significant improvement over the older method(concate string using + operator)
+
+another great feature of template literals is that they support multiline strings. with regural strings, you would use (\n) to create new lines. with template literals you can write strings across multiple lines and the formating is preserved:
+ex. let poem = `Roses are red,
+            Violets are blue,
+            JavaScript is fun,
+            And so are you.`;
+
+and also embed algortihm directly within the string:
+ex. const song = "bohemian rapsody";
+    const score = 9.5;
+    const highestScore = 10;
+    const output = `one of my favorite song is ${song} with my rating is ${(score / highestScore) *100}%.`;
+
+    console.log(output);    //one of my favorie song is bohemian rapsody with my rating is 95%
+
+# find the position of a substring in a string
+a substring is a sequence of characters that appears within a larger string. for example, in the string hello world, hello and world are substring
+
+to locate the position of a substring inside of a string you can use indexOf() method. the indexOf() method in javascript allows you to search for a substring within a string
+
+if the substring is found inside the string, indexOf() returns the index (or position) of the first occurance of the substring, if the substring is not found, indexOf() returns -1 which indicates that the search was unsuccessful.
+
+the indexOf() method takes two arguments: 
+    1. the first is substring you want to find within the larger string
+    2. is an option starting posisition for the search. if you don't provide a starting position the search will begin at the start of the string
+
+in this context, an argument is a value you give to a function or method when you call it, enabling that function or method to perform its task using a specific information you provide
+
+ex. let sentence  = "javascript is awesome!";
+    let position  = sentence.indexOf("awesome!");
+    console.log(position); // 14
+
+in this example the word awesome starts at index 14 in the string javasript is awesome!, so the indexOf() method returns 14
+
+now if its not found:
+ex. let sentence  = "javascript is awesome!";
+    let position  = sentence.indexOf("fantastic!");
+    console.log(position); // -1
+
+
+you can also specify where to begin the searching within a string by providing a second argument to indexOf():
+ex. let sentence = "Javascript is awesome, and Javascript is powerful!";
+    let position = sentence. indexof("Javascript", 10);
+    console.log(position);      //27
+
+in this case the search begins after 10th character and so the second occurance of javascript is found on 27
+
+important: indexOf() is case sensitive
+
+# prompt() method and how does it works?
+prompt() method is a pop up or modal is the simplest ways to get user input through small pop up dialog box
+the prompt() method takes two arguments: 
+    1. message which will appear inside the dialog box
+    2. is default value which is optional and will fill the input initially
+
+ex. prompt(message, default);
+
+if the users fill the form and presses "OK" the variable data will be filled with the value of the user input on the prompt, if the user did not provide the value or fill the form the data will be set on null. null signifies the that the user did not provide any input.
+
+keep in mind the prompt() method will halt the execution of the script until the user interacts with the dialog box
+
+prompt() is useful for quick testing and small applications, its generally avoided modern, complex web application due its disruptive nature  and inconsistent behaviour across different browsers
+
+# what is ASCII, and how does it works with charCodeAt() and fromCharCode()?
+in programming, understanding how charcaters are represented as numbers is fundamental. there is where ASCII cimes in. 
+ASCII, short for American Standard Code for Information Interchange, is a character encoding standard used for in computers to represents text. it assigns a numeric value to each character, which is universally recoginezed by machines.
+
+with that being said, the javascript method to encode data are charCodeAt() and fromCharCode().  while javascript strings is unicode (UTF-16) internally, ASCII values match the first 128 unicode characters, which is why ASCII-based examples work in javascript.
+
+ASCII is a system of encoding characters such as letters, digits, and symbols into numerical values. each characters is mapped to a specific number.
+
+ex. capital letter "A" is represented by the number 65 in ASCII, while the lowercase "a" is 97. this encoding allows computers to store and manipulate text.
+
+THE ASCII STANDARD COVERS 128 CHARACTERS INCLUDING:
+    -uppercase and lowercase English Letters (A-Z; a-z).
+    -Numbers(0-9);
+    -common punctuation mark and symbols(!,&,@, and so on).
+    -control charaters (such as newline and tab);
+
+in javaScript, you can access the numeric code of the characters using the charCodeAt() method. this method returns the UTF-16 code unit of the characters at a specific index. for the first 128 characters, this value matches the ASCII Code.
+
+ex. let letter = "A";
+    console.log(letter.charCodeAt(0));       //65
+
+in this example, "A" is the first characters of the string, and calling the charCodeAt(0) returns its numeric code (which matches ASCII value for basic latin characters) 65.
+
+you can also use this method for different characters:
+
+ex. let letter = "!";
+    console.log(letter.charCodeAt(0))       //33
+
+while charCodeAt() helps you retrived the numeric code of a character, the fromCharCode() method allows you to do the opposite: convert the UTF-16 code unit (which mathces ASCII for basic characters) into their corresponding character.
+
+ex. let char = string.fromCharCode(65);
+    console.log(char);       //A
+
+this example fromCharCode(65) converts the numeric code 65 (which matches the ASCII value of A) back to characters "A"
+
+ex. let char = string.fromCharCode(97);
+    console.log(char);      //a
+
+the methods useful when you want to compare or manipulate charachters based on their numeric code values.
+for instace, you might use charCodeAt() to check if a characters is uppercase, lowecase, or a digit by comparing its ASCII value.
+on the other hand, fromCharCode() can be used to dynamically generate characters from their ASCII codes.
+
+# test if a strings contains a substrings
+when working on javascript, there are many cases where you wanted to check wether or not the strings contains a specific substrings, which is smaller part of the strings.
+
+for example. you might wanted to check the users input includes a specific word of characters before perfoming some action. one way to achive this is by using the include() method.
+
+the include() method is used for check if strings contains a specific substring. if the substring is found within the string, the method return true otherwise is false.
+
+ex. let phrase = "Javascript is awesome!";
+    let result = phrase.include("awesome);
+    console.log(result);        //true;
+
+in this example, the word awesome is found within the string "Javascript is awesome!", so the include() method return true.
+
+keep in mind, include() method is case sensitive this means that the exact match of the characters is required, including their case.
+
+ex. let phrase = "Javascript is awesome!";
+    let result = "Awesome";
+    console.log(result);        //false
+
+since "Awesome" (with a uppercase A) does not match "awesome" (with lowercase a) the result is false.
+
+you can also use the include() method for checking a substrings starting at a specific index in the string by providing a second parameter.
+
+ex. let text = "Hello, Javascript world!";
+    let result  = text.include("Javascript", 7);
+    console.log(result);        //true
+
+here, the search for the substring Javascript start form the 7th position in the string ensuring it skips any characters before the this position.
+
+the include() method only returns true or false result. it does not provide further information on where the substring is located in the string or how many times it occurs. if you need that level of detail, other method such as indexOf() method  might be more suitable.
+
+# how can you extract a substring from a string
+when working in javascript you often might wanted to extract a portion of the substring from a larger string. for example, you may want to extract a part of a word, specific character sequence, or just a fragment of a sentence.
+
+javascript provides several methods for this task, one of the commonly use is slice() method. the slice() method allows you to extract a portion a string and returns a new string, without modifying the original string. it takes two parameters:
+    -the starting index
+    -optional ending index
+
+here is the syntax:
+    string.slice(startingIndex, endingIndex);
+
+startIndex is the position of where the extraction starts. endIndex is where the extraction ends. if not provide the end, the slice() method will extract till the end of the string.
+
+ex. let message = "hello, world";
+    let greeting = message.slice(0,5);
+
+    console.log(greeting);      //hello
+
+in this example, slice(0,5) extract characters starting from index 0 up to and no including the index 5. as result, the world "hello" is extracted;
+
+if you omit the second parameter, slice() will extract till the end of the string.
+
+ex. let message = "hello, world!";
+    let word = message.slice(7);
+    console.log(word);      //world!
+
+you can also use negative numbers as indexes, when you use the negative numbers it counts from backwards form the end of the string:
+
+ex. let message = "hello, its fun!";
+    let word = message.slice(-4);   //fun!,
+
+in this case, it extracts the last four characters from the string, giving us fun!
+
+if you wanted to slice from the middle, you can provide the starting index and the end index to precisely control which substring you wanted to extract:
+
+ex. let message = "i love you";
+    let word = message.slice(1, 5);
+
+    console.log(word);  //love
+
+the slice method() is powerful tool for extracting parts of the strings in javascript, you specify the start and end indexes, and the method returns a new string that contains the extracted portion. with options for positive, negatives and omited indexes, you can adapt it to various situations without altering the strings.
+
+# how to change casing for a string
+in some cases you may faces, where you might need to adjust the text casing, such as transforming all letters into uppercase and lowercase.
+javascript make this easy with toUpperCase() method and toLowerCase() method.
+
+toUpperCase() method converts all the text into uppercase letters and returns new strings with all uppercase characters. this useful for emphasize the text or create consistency in the format of string
+
+ex. let message = "hello world";
+    let upText = message.toUpperCase();
+    console.log(upText);    //HELLO WORLD
+
+on the flip side, the toLowerCase() method converts all the all characters into lowercase letters. this helpful when you need standarlize input such as when comparing user-provided text or making case-insensitive checks.
+
+ex. let message = "HELLo, world";
+    let lowText = message.toLowerCase();
+    console.log(lowText);       //hello,world
+
+# how to trim whitespace from a string
+its common to encounter unwanted whitespace at the beginning or end of a string. whitespace can interfere with operations like comparison, storage or display which is why its important to remove unwanted whitespace
+
+to trim a whitespace you could use trim(), trimStart(), trimEnd() methods to remove whitespace
+
+keep in mind whitespace are spaces,tab or line breaks that occurs in text but not visible to characters
+
+trim() method is commonly used way to remove whitespace from both the beggining and end strings.
+
+ex. let message = "     hello, world       "
+    let rmv = message.trim();
+    console.log(rmv);       //hello, world
+
+in this case trim() method removes all leading and trailing spaces leaving just text or actual characters (note that any whitespace between the characters are considered as characters and its left untouched by trim() method)
+
+what if you wanted only remove the begining or end of the strings, but not both. thats where trimStart() and trimEnd()come in
+
+ex. let message = "     hello, world       "
+    let rmv = message.trimStart();
+    console.log(rmv);       //"hello, world     "
+
+this for trim start
+
+ex. let message = "     hello, world       "
+    let rmv = message.trimEnd();
+    console.log(rmv);       //"     hello, world"
+
+this for trim ends.
+
+in summary trimming whitespace is an essential part for working with strings wether you want to clean up text input data or ensure consistent writing of a strings.
+
+# Replace part of a String with another
+there are many case where you wanted to replace a portion of a string with another string. for instance, you might need to update user information in a URLs, update the user formatting of date, or correct the errors in user-generated content.
+
+the replace() method allows you to find a specific value (like a word of character) in a string and replace it with another value. the method returns a new string with the replacement and leaves the original unchanged becuase javascript strings are immutable.
+
+ex syntax.  string.replace(searchValue, newValue);
+
+searchValue is the value you wanted to search for in the strange, it can be either a string or a regular expression(regex) which describes patters in text. this allows you to search for and manipulate strings in a flexible and powerful way. you'll learn more about regular expression in future lessons.
+
+the newvalue is the value that will replace the searchValue. here's and example
+
+ex. let text = "I love JavaScript";
+    console.log(text);      //I love JavaScript
+    let new text = text.replace("JavaScript","coding");
+    console.log(text);      //I love coding
+
+the replace() method is case-sensitive. so if the search not match then the replace would'nt be replaces
+
+ex. let sentence = "I enjoy working with JavaScript";
+    console.log(sentence)   //I enjoy working with JavaScript
+    let update = sentence.replace("javascript","coding");
+    console.log(sentence)   //I enjoy working with JavaScript
+
+j is in javascript is lowercase on search but in actual sentence is J with uppercase, so no change are made
+
+by default, the replace() method will only replace the first occurance of the searchValue. if the value have appears multiple times in the string, only the first one is made to replace.
+
+ex. let phrase = "Hello, world! Welcome to the world of coding.";
+    console.log(phrase);        //Hello, world! Welcome to the world of coding.
+    let update = phrase.replace("world","universe");
+    console.log(update);       //Hello, universe! Welcome to the world of coding.
+
+notice only the first world is replaced with universe
+
+in summary, replace() method is powerful and flexible tool for string manipulation. it lets you replace specific parts of string, wheter you're dealing with individual characters, words or complex patters using regular expressions.
+
+while its ideal for straightforward replacements, understanding its case sensitive and default behaiour (like only replacing the first occurance) can help you use it more effectively
+
+# repeat string x number of times
+you may encounter situations where you need to repeat a string a specific number of times. wether you're generating repeated patters or simply duplicating text, the repeat() method provide simply and effective way to achieve this.
+
+the repeat() method is a build-in function in javascript that allows you to repeat a string a specified number of times.
+
+ex. let word = "Hello";
+    let rpt = word.repeat(3);
+    console.log(rpt);       //HelloHelloHello
+
+while the repeat() method is useful, there are few exceptions and limitations to keep in mind. the count parameter must be a non-negative number. if you pass a negative number, javascript will throw a RangeError.
+
+ex. let word = "test";
+    console.log(word.repeat(-1));   // Throws RangeError: invalid count value
+
+the count must be a finite number. if you try to repeat a string an infinite number of times or use infinity as the count, you will also get a rangeError.
+
+in javascript, infinity is a special value that represents an infinite quantity. its used to donate numbers that are larger than any finite number.
+
+ex. let word = "test";
+    console.log(word.repeat(infinity));         //throws RangeErro: invalid count value
+
+if the count is not a integer(such as a decimal like 2.5) the repeat() method will round it down to the nearest integer.
+
+ex. let word = "test";
+    console.log(word.repeat(2.5));      //testtest
+
+if you pass 0 as the count, the repeat method will return empty string
+
+ex. let word = "test";
+    console.log(word.repeat(0));        //""
+
+the repeat() method can simplify task that involve string duplication, making your code more concise and readable. wether or you're generating repeated text patterns or filling a space with characters repeat() can save you from writing loops or more complex code
+
+you are not limited to passing number directly into the repeat() method. you can pass variable that stores number value.
+
+ex. let count =4;
+    let word = "test";
+    let repeat = word.repeat(count);
+    console.log(repeat);        //testtesttesttest
+

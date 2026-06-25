@@ -67,6 +67,6 @@ function toObject(value){
         }
     }
 
-console.log(toObject(null));
-console.log(toObject(true));
-console.log(toObject([1,2,3]));
+console.log(toObject(null));        //{}
+console.log(toObject(true));        //undefined
+console.log(toObject([1,2,3]));     //[1,2,3]

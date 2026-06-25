@@ -37,14 +37,9 @@ const getRandomLunch = array => {
   }
   else{
     let indexArray = array.length - 1;
-    // let getRandom = Math.random() * (indexArray - 0 + 1) + 0;
-    let getRandom = Math.random() * indexArray;
-    console.log(getRandom);
+    let getRandom = Math.random() * (indexArray - 0 + 1) + 0;
     let roundedGetRandom = Math.trunc(getRandom);
-    console.log(roundedGetRandom);
     let randomLunches = array[roundedGetRandom];
-    console.log(roundedGetRandom);
-    console.log(randomLunches);
     console.log(`Randomly selected lunch: ${randomLunches}`);
   }
 }

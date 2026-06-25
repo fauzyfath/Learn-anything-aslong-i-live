@@ -14,7 +14,6 @@ const dropElements = (arr, func) => {
     }
     continue;
   }
-  // console.log(lastCorrect)
   return arr.slice(firstCorrect, lastCorrect)
 }
 

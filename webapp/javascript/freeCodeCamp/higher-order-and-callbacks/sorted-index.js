@@ -6,7 +6,7 @@ const getIndexToIns = (arr, numb) =>{
   const result = arr.findIndex(index => index >= numb)
   if(result == -1){
     return arr.length
-  }
+}
   return result
 
 }

@@ -42,17 +42,3 @@ function calculateSquareRoot(num) {
 console.log(calculateSquareRoot(25));
 console.log(calculateSquareRoot(100));
 
-
-const email = "apple.pie@example.com";
-
-const maskEmail = oldEmail => {
-  let indexEmail = oldEmail.indexOf("example.com");
-  let sliceEmail =  oldEmail.slice(1, indexEmail-2);
-  let emailAfterSlice = sliceEmail;
-  let maskedEmail = emailAfterSlice(sliceEmail,"*" )
-  console.log(maskedEmail);
-    
-  return maskedEmail;
-}
-
-console.log(maskEmail(email));

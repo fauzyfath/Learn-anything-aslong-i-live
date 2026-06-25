@@ -1612,3 +1612,142 @@ openButton.addEventListener("click", () =>{
 closeButton.addEventListener("click", ()=>{
     dialog.close();
 })
+
+# what is the change event, and how does it work?
+the change event is a special event which is fired when the user modifies the value of certain input elements. more specifically:
+
+- when the checkbox is ticked or unticked
+- when a radio button is ticked
+- when the user makes a selection from something like a date picker or dropdown menu.
+- when an input loses focus (the user tabs to the next field, or clicks out of the form) after the user has changed the value.
+- when the user otherwise confirms the value, such as by hitting enter after typing some text.
+
+note that the change event does NOT fire when your user types in an input. the change event will only fire after they have focused on another element.
+
+here is an example of using the change event with dropdown menu:
+
+<select id="select-menu">
+    <option value="option1">option 1</option>
+    <option value="option2">option 2</option>
+    <option value="option3">option 3</option>
+</select>
+<script src="script.js"></script>
+
+const selectMenu = document.getElementById("select-menu");
+selectMenu.addEventListener("change", (event) => {
+    console.log(`you selected: ${event.target.value}`)
+})
+
+each time the user selects a different option from the dropdown menu, the change event will fire and the selected value will be logged to the console.
+
+the change event still generates an event object, but unlike most other events it does not generate a custom implementation - the only properties and methods you will have access to are those on the base event object.
+
+this differs from the input event, which generates a dedicated InputEvent object. the change event also differs in a few ways. an input event WILL trigger when a user types content into a field, for example.
+
+these differences are important to remember, as you might get tripped up by the timing of these events firing.
+
+# how doe event bubbling, and event delegation work?
+event bubbling or propagation, refers to how an event "bubbles up" to parent objects when triggered. for example, consider this code:
+
+<p>
+    <span>click me</span>
+</p>
+
+the p element here would be considered the parent of the span element.
+
+when you click on the span element, like you are instructed to, the span element becomes the target of a click event. that event, however, also bubbles up to the parent - the p element can receive and consume that event as needed.
+
+but what does this actually mean? well, you could attach an event listener to the p element:
+
+const p = document.querySelecetor("p");
+p.addEventListener("click", (event) => console.log(event.target));
+
+then, when you click on the span element you will see the text click me logged to the console.
+
+the event propagates to the parent p element, which consumes it in an event listener to display the target of the event.
+
+notice how the target is still the span element. this is because the span element received the inital click.
+
+just ot be sure how things are working, let's expand our code:
+
+const p = document.querySelecetor("p");
+cosnt span = document.querySelecetor("span");
+
+p.addEventListener("click", (event) => {
+    console.log("p listener: ");
+    console.log(event.target);
+})
+
+span.addEventListener("click", (event) => {
+    console.log("span listener: ");
+    console.log(event.target);
+})
+
+to give you an ideaof how the event bubbles up, here's what you'll see in the console after clicking the span element:
+
+"span listener: "
+<span>click me</span>
+"p listener: "
+<p>click me</p>
+
+now lets see what happens when you prevent the propagation of an event with stopPropagation(). we'll call it in our span event listner:
+
+const p = document.querySelecetor("p");
+const span = document.querySelecetor("span");
+
+p.addEventListener("click", (event) => {
+    console.log("p listener: ");
+    console.log(event.target);
+})
+
+span.addEventListener("click", (event) => {
+    console.log("span listener: ");
+    console.log(event.target);
+    event.stopPropagation();
+})
+
+and then click our span again:
+
+"span listner"
+<span>click me</span>
+
+this time, we don't see our p listner trigger. the event never fires for the p element, because we told it to stop propagation while it was being processed for the child span element.
+
+event delegation can be thought of as the opposite. it's the process of taking a captured event, and delegating it to another element.
+
+going back to our code, let's update it so clickin on a span element changes it to red:
+
+const p = document.querySelecetor("p");
+const span = document.querySelecetor("span");
+
+p.addEventListener("click", (event) =>{});
+span.addEventListener("click", (event) => {
+    event.target.style.color = "red";
+})
+
+but what if you have twenty span element? or maybe you use javascript to create more span elements on the fly?
+
+reather than having to attach an event listener to every single span element, you can actually use the listener on the p element for all of them. in other words, you can delegate the handling of the span clicks to the parent p element.
+
+our code might now look something like this:
+
+const p = document.querySelecetor("p");
+p.addEventListener("click", (event) => {
+    event.target.style.color = "red"
+})
+
+let's generate a few extra span elements and see:
+
+<p>
+    <span> click me </span>
+    <span> click me </span>
+    <span> click me </span>
+    <span> click me </span>
+</p>
+
+now, each time we click on a span, that element text will become red.
+
+and just like that, with a single event listener we've properly allowed a click event to bubble up from span elements to the parent p, and delegate the logic for that click event to the p element.
+
+event propagation and delegation can be a complex topic, especially as you get into heavily nested elements like tables. you are encouraged to explore this further and experiment with some of the code we've writted here.
+

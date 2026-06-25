@@ -112,13 +112,3 @@ console.log(validateManifest({containerId: null , destination: null, weight: 0 ,
 // processManifest({ containerId: -88, destination: "Soledad", weight: NaN });
 
 // processManifest({ containerId: 55, destination: "Carmel", weight: 400, unit: "lb", hazmat: false })
-
-
-const user = {
-        name: "john",
-        age: 30,
-        isAdmin: true
-    };
-
-    const jsonString = JSON. stringify(user);
-    console.log(jsonString);        //

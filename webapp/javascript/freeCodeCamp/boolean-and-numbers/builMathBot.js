@@ -48,4 +48,3 @@ const minNum = Math.min(6, 90, 14, 90, 2);
 console.log(minNum);
 
 console.log("It was fun learning about the different Math methods with you!")
-

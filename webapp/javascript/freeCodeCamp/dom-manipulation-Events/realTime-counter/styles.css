@@ -24,6 +24,7 @@ html,body{
 main{
     align-items: center;
     justify-content: center;
+    gap: 20px;
 }
 
 h1,#title{

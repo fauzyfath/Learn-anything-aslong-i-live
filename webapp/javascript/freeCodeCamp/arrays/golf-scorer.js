@@ -51,16 +51,16 @@ console.log(golfScore(4,8));
 console.log(golfScore(5,9));
 
 
-function toObject(value){
-    if(value === null || value ===undefined){
-        return {};
-    }
-    if(typeof value === "object"){
-        return value;
-    }
-}
+// function toObject(value){
+//     if(value === null || value ===undefined){
+//         return {};
+//     }
+//     if(typeof value === "object"){
+//         return value;
+//     }
+// }
 
-console.log(toObject(null));
-console.log(toObject(true));
-console.log(toObject([1,2,3]));
+// console.log(toObject(null));
+// console.log(toObject(true));
+// console.log(toObject([1,2,3]));
     

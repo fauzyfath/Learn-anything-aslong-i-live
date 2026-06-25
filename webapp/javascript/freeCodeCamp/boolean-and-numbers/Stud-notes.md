@@ -499,7 +499,6 @@ ex. let a = 5;      //binary: 101
     console.log(a | b);     //7 (binary: 111) 4 + 2 + 1
 
     
-
 here, the reuslt is 7 (111 in binary) because at least one of the bits is 1 in each position.
 
 the bitwise XOR(^) operator returns a 1 in each bit position for which the corresponding bits of either, but not both, operands are 1. for instance:
@@ -619,7 +618,7 @@ here's an examples dealing with weather tempreture in celcius:
 ex. const temperature = 30;
     const weather = temperature > 25 ? "sunny" : "cool";
 
-    console.log(`it's a ${weather} day!);       //cool
+    console.log(`it's a ${weather} day!);       //sunny
 
 if temperature is greater than 25, the code above will logs "its a sunny day". if the temperature is under 25 the logs will print "its a cool day!".
 
@@ -728,15 +727,15 @@ the opposite of the Math.ceil(), the Math.floor() will round the number down wet
 
 Math.round() is the hybrid of Math.ceil() and Math.floor(), it rounds a numbers to its nearest integer, taking the decimal point into account:
 
-ex. console.log(Math.floor(5.8));       //6
-    console.log(Math.floor(2.1));       //2
-    console.log(Math.floor(7.6));       //8
+ex. console.log(Math.round(5.8));       //6
+    console.log(Math.round(2.1));       //2
+    console.log(Math.round(7.6));       //8
 
 so if the decimal point is less than 5, the number will rounded down and if the decimal is greater than 5, the number will rounded up. the practical application of Math.floor() and Math.random() is to generate a random number between two whole numbers. here an example:
 
 ex. const max = 10;
     const min = 2;
-    const randomNum = Math.floor(Math.random() * (max - min + 1) + min);
+    const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
     console.log(randomNum);
 
 generating a random number between 20 and 1 look like this:
@@ -801,7 +800,7 @@ due to these potential inconsistencies, ES6 (the sixth edition of javascript) in
 
 ex. console.log(Number.isNaN(NaN));             //true
     console.log(Number.isNaN(Number.NaN));      //true
-    console.log(Number.isNaN(0/0));             //trueN
+    console.log(Number.isNaN(0/0));             //true
     console.log(Number.isNaN("NaN"));           //true
     console.log(Number.isNaN(undefined));       //true
     console.log(Number.isNaN({}));              //true
@@ -835,7 +834,163 @@ as you can see, parseFloat() starts parsing from the beginning of the string and
 
 ParseInt(), on the other hand, parses a string argument and returns an integer. like parseFloat(), it starts from the beginning of the string, but it stops at the first non-digit character. here's how parseInt() works:
 
-ex. console.log(parseFloat("3.14"));        //3.14
-    console.log(parseFloat("3.14 abc"))     //3.14
-    console.log(parseFloat("3.14.5"))       //3.14
-    console.log(parseFloat("abc 3.14"))     //NaN
+ex. console.log(parseInt("42"));            //3.14
+    console.log(parseInt("42px"));          //3.14
+    console.log(parseInt("4.4"));           //3.14
+    console.log(parseInt("abc132"));        //NaN
+
+both methods have some noteworthy behaviours, they ignoreleading whitespace:
+
+ex. console.log(parseFloat("    3.12"));        //3.12
+    console.log(parseInt("      41"));          //41
+
+they handle plus and minus signs at the beginning of the string:
+
+ex. console.log(parseFloat("+3.12"));      //3.12
+    console.log(parseInt("-41"));          //-41
+
+it's worth noting that while these methods are powerful, they ahve some limitations. for example, they don't handle all numbers formats, such as scientific notation, directly. for more complex parsing needs, you might need to use additional techniques or libraries.
+
+# what is the toFixed() method, and how does it work?
+the .toFixed() method is a built-in javascript function that formats a number using fixed-point notations. it's particularly useful when you need to control the number of decimal places in a number, especially for displaying currency values or when working with precise measurements.
+
+the .toFixed() method is called on a number and takes one optional argument, which is the number of digits to appear after the decimal point. it returns a string representation of the number with the specified number of decimal places. here's a basic example:
+
+ex. let num = 3.141523
+    console.log(num.toFixed(2));        //"3.14"
+
+it's important to note that .toFixed() returns a string not a number. this is because the method is primarily intended for formatting numbers for display, not for further calculations.
+
+the .toFixed() method rounds the number to the nearest value that can be represented with the specified number of decimal places. this rounding behaviour is important to understand:
+
+ex. console.log((3.141532).toFixed(3));         //"3.142"
+    console.log((3.143221).toFixed(3));         //"3.143"
+    console.log((3.146811).toFixed(3));         //"3.147"
+
+if you call .toFixed() without arguments, it defaults to 0 decimal places:
+
+ex. let num = 3.14142
+    console.log(num.toFixed());         //"3"
+
+the .toFixed() method can be particularly useful when working with financial calculations or displaying prices:
+
+ex. let price = 19.99;
+    let taxRate = 0.08;
+    let total = price +  (price * taxRate);
+    
+    console.log(`Total: $${total.toFixed(2)}`);     //"Total: $21.59"
+
+in conclusion, the .toFixed() method is a powerful tool for formatting numbers in javascript, particularly when you need to control the display of decimal places. while it's primarly used for formatting output, remember it's behaviour, especially when precise calculations are needed.
+
+# how do comparisons work with Null and undefined data types?
+null and undefined are two distinct data types that represent the absence of a value, but they behave differently in comparisons. understanding how these types interact in various comparison scenarios is crucial for writing robust and bug-free code
+
+undefined type, a variable is undefined when it has been declared but hasn't been assigned a value. it's the default value of uninitialized variable and function parameters that weren't provided an argument
+
+the Null type is an assignment value that represent a deliberate non-value. it's often used to indicate that a variable intentionally has no value
+
+when comparing null and undefined using the equality operator(==), javascript performs type coercion. this means it tries to convert the operands to the same type before making the comparison. in this case, null and undefined are considered equal:
+
+ex. console.log(null == undefined);     //true
+
+however, when using the strict equality operator(===), which checks both value and type without performing type coercion, null and undefined are not equal;
+
+ex. console.log(null === undefined);    //false
+
+when comparing null or undefined with other values using the equality operator(==), the behaviour can be unexpected.
+
+ex. console.log(null==0);           //false
+    console.log(null=='');          //false
+    console.log(undefined == 0);    //false
+    console.log(undefined == '');   //false
+
+these comparison return false because both type are only equal to each other(and themselves) when using the equality operator. the behaviour of null in other comparison is particularly tricky:
+
+ex. console.log(null>0);        //false
+    console.log(null==0);       //false
+    console.log(null>=0);       //true
+
+undefined on the other hand always converts to NaN in numeric contexts, which makes all numeric comparisons with undefined return false:
+
+ex. console.log(undefined>0);       //false
+    console.log(undefined<0);       //false
+    console.log(undefined==0);       //false
+
+given these naunces, it's generally recommended to use the strict equality operator(===) when comparing values, especially when dealing with null and undefined. this approach helps avoid unexpected type coercion and makes your code's behaviour more predictible
+
+# what are switch statements and how do theey differ from if/else chains?
+switch statement and if/else if/else chains are both control flow structures in programming that allow use to execute different code blocks based on certains conditions. however, they have distinct characteristics and use cases.
+
+a switch statement evaluates an expression and matches its value against a series of case clauses. when match is found, the code block associated with that case is executed. here's a basic structure of a switch statement:
+
+ex. swtich(expression){
+    case value1:
+    //code to be executed if expression === value 1
+    brake;
+    case value2:
+    //code to be executed if expression === value 2
+    brake;
+    default:
+    code to be executed if expression doesn't match
+}
+
+the break statement at the end of each case is crucial to tell the program to exit the switch block once a matching case has been executed. without it, the program would continue executing subsequent cases, a behavior known as "fall-through".
+
+switch statements are typically used when you're comparing a single variable against multiple possible values. they're especially useful when you have many potential conditions to check against a single variable. 
+
+ex. dayOfWeek = 3;
+    
+    switch(dayOfWeek){
+        case 1:
+            console.log("It's monday");
+            break;
+        case 2:
+            console.log("It's tuesday");
+            break;
+        case 3:
+            console.log("It's wednesday");
+            break;
+        case 4:
+            console.log("It's thursday");
+            break;
+        case 5:
+            console.log("It's friday");
+            break;
+        case 6:
+            console.log("It's saturday");
+            break;
+        case 7:
+            console.log("It's sunday");
+            break;
+        default:
+            console.log("invalid day, please enter 1 to 7")
+    }
+
+if/else if statements on the other hand are more flexible. they can evaluate complex conditions and different variables in each clause. this makes them suitable for a wider range scenario.
+
+ex. let creditScore = 720;
+    let annualIncome = 60000;
+    let loanAmmount = 200000;
+
+    let eligibilityStatus;
+
+    if(crediScore >= 750 && annualIncome >= 80000){
+        eligibilityStatus = "elligble for premium loan";
+    }
+    else if(crediScore >= 700 && annualIncome >= 50000){
+        eligibilityStatus = "eligble for standard loan";
+    }
+    else if(creditScore >=650 && annualIncome >= 40000){
+        eligibilityStatus = "eligble for subprime loan";
+    }
+    else if(creditScore <650){
+        eligibility = "not eligible due to low credit"
+    }
+    else{
+        eligibility = "not eligible due to insufficient income"
+    }
+    console.log(eligibitlity)   //eligible for standard loan
+
+in this example, we have persons's annual income and credit score and checking what types of loan they would qualify for. since we are dealing with more complex logical evaluations and multiple variables, it is better to use an if/else statement here versus a switch statement.
+
+it's worht nothing that switch statement in javascript use strict comparison (===) which means they don't perfomr type coercion. this can be an advantage in terms of predictability and avoiding subtle bugs.
